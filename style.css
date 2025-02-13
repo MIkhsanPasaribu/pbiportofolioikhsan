@@ -498,7 +498,7 @@ input:checked + .theme-label:before {
 }
 
 .project-grid {
-    max-width: 1200px;
+    max-width: 750px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -787,15 +787,29 @@ footer .social-links a:hover {
         text-align: center;
     }
 
-    /* About Section */
-    .about-container {
-        grid-template-columns: 1fr;
-        gap: 2rem;
+    .about-section {
+        padding-top: 8rem; /* Increased top padding */
     }
 
     .profile-image-container {
         width: 250px;
         height: 300px;
+        margin: 2rem auto 3rem; /* Added margin top and bottom */
+        position: relative;
+        top: -2rem; /* Move image up slightly */
+    }
+
+    .about-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .section-title {
+        margin-bottom: 1rem; /* Increased space below title */
+    }
+
+    .info-container {
+        padding-top: 1rem;
     }
 
     /* Skills Section */
