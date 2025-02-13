@@ -1,0 +1,698 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Navigation */
+nav {
+    position: fixed;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 999;
+}
+
+.nav-content {
+    max-width: 1200px;
+    margin: auto;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo a {
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.nav-links li {
+    margin-left: 2rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+}
+
+/* CSS Variables untuk light/dark mode */
+:root {
+    /* Light Theme (default) */
+    --primary-color: #2d2e32;
+    --secondary-color: #64f4ac;
+    --bg-color: #ffffff;
+    --text-color: #2d2e32;
+    --light-text: #767676;
+    --card-bg: #ffffff;
+    --border-color: #eaeaea;
+}
+
+.theme-switch {
+    position: relative;
+    margin-left: 20px;
+}
+
+.theme-switch input {
+    display: none;
+}
+
+.theme-label {
+    cursor: pointer;
+    padding: 10px;
+    background: var(--card-bg);
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    width: 50px;
+    height: 26px;
+    border: 2px solid var(--border-color);
+}
+
+.theme-label i {
+    font-size: 14px;
+}
+
+.theme-label .fa-sun {
+    color: #f39c12;
+}
+
+.theme-label .fa-moon {
+    color: #f1c40f;
+}
+
+.theme-label:before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--secondary-color);
+    left: 2px;
+    transform: translateX(0);
+    transition: transform 0.3s ease;
+}
+
+input:checked + .theme-label:before {
+    transform: translateX(24px);
+}
+
+[data-theme="dark"] {
+    --primary-color: #ffffff;
+    --secondary-color: #64f4ac;
+    --bg-color: #1a1a1a;
+    --text-color: #ffffff;
+    --light-text: #a0a0a0;
+    --card-bg: #2d2e32;
+    --border-color: #404040;
+    --skill-card-bg: #2d2e32;
+    --skill-text: #ffffff;
+}
+
+/* Skill Cards Dark Mode */
+[data-theme="dark"] .skill-card {
+    background-color: var(--skill-card-bg);
+}
+
+[data-theme="dark"] .skill-card h3 {
+    color: var(--skill-text);
+}
+
+/* Home Section Dark Mode */
+[data-theme="dark"] .home-section h1,
+[data-theme="dark"] .home-section p {
+    color: var(--secondary-color);
+}
+
+/* Skill Categories Dark Mode */
+[data-theme="dark"] .skill-category {
+    color: var(--secondary-color);
+    background-color: var(--skill-card-bg);
+}
+
+[data-theme="dark"] .skill-item {
+    background-color: var(--card-bg);
+    color: var(--secondary-color);
+}
+
+/* Specific fixes for skill labels */
+[data-theme="dark"] .skill-label,
+[data-theme="dark"] .category-title {
+    color: var(--secondary-color);
+}
+
+/* Navigation Dark Mode */
+[data-theme="dark"] .nav-links a {
+    color: var(--secondary-color);
+}
+
+[data-theme="dark"] .nav-links a:hover {
+    color: var(--secondary-color);
+}
+
+/* Card backgrounds in dark mode */
+[data-theme="dark"] .card {
+    background-color: var(--card-bg);
+}
+
+/* Make sure white backgrounds are properly handled */
+[data-theme="dark"] .white-bg {
+    background-color: var(--bg-color);
+}
+
+body {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Home Section */
+#home {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f9f9f9;
+}
+
+.hero {
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+/* Sections */
+section {
+    padding: 5rem 2rem;
+}
+
+section h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+/* About Section */
+.about-content {
+    max-width: 800px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.about-content img {
+    width: 300px;
+    border-radius: 50%;
+}
+
+/* Projects Section */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* Project card styles */
+.project-card {
+    max-width: 300px; 
+    margin: 0 auto;
+}
+
+.project-card img {
+    width: 100%;
+    height: 200px; 
+    border-radius: 10px;
+}
+
+.project-card h3 {
+    font-size: 1.2rem;
+    margin: 15px 0 10px;
+}
+
+.project-card p {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
+
+.project-card .tech-stack {
+    font-size: 0.8rem;
+    color: var(--light-text);
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: #333;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 1rem;
+}
+
+/* Contact Section */
+.contact-content {
+    text-align: center;
+}
+
+.social-links {
+    margin-top: 1rem;
+}
+
+.social-links a {
+    margin: 0 1rem;
+    color: #333;
+    text-decoration: none;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 2rem;
+    background: #424242;
+    color: #fff;
+}
+
+/* Skills Section */
+.skills-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.skill-card {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.skill-card:hover {
+    transform: translateY(-5px);
+}
+
+.skill-bar {
+    margin: 1rem 0;
+    background: #f0f0f0;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.skill-progress {
+    background: #333;
+    color: #fff;
+    padding: 0.5rem;
+    transition: width 1s ease;
+}
+
+/* Project Filters */
+.project-filters {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.filter-btn {
+    padding: 0.5rem 1rem;
+    margin: 0 0.5rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.filter-btn.active {
+    color: #007bff;
+}
+
+/* Project Cards */
+.project-img {
+    position: relative;
+    overflow: hidden;
+}
+
+.project-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.project-card:hover .project-overlay {
+    opacity: 1;
+}
+
+.project-links a {
+    color: #fff;
+    margin: 0 1rem;
+    font-size: 1.5rem;
+}
+
+/* Contact Form */
+.contact-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.contact-form {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.form-group textarea {
+    height: 150px;
+    resize: vertical;
+}
+
+/* Animations */
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+.cursor {
+    animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #fff;
+        padding: 1rem;
+    }
+
+    .nav-links.active {
+        display: block;
+    }
+
+    .menu-btn {
+        display: block;
+    }
+
+    .about-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-image-container {
+        width: 500px; 
+        height: 600px; 
+        margin: 0 auto;
+    }
+
+    .profile-image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px; 
+    }
+
+    .download-cv {
+        display: inline-block;
+        padding: 12px 30px;
+        background-color: var(--primary-color);
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 500;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        margin-top: 30px;
+    }
+
+    .download-cv:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        background-color: var(--secondary-color);
+    }
+
+    .download-cv:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, #39B984, #64f4ac);
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+
+    .download-cv:active {
+        transform: translateY(1px);
+    }
+
+    .download-cv i {
+        margin-left: 8px;
+        font-size: 1.1rem;
+        vertical-align: middle;
+    }
+
+    /* Styling untuk tombol Download CV di dark mode */
+    [data-theme="dark"] .download-cv {
+        background-color: var(--card-bg);
+        color: var(--text-color);
+        border: 1px solid var(--border-color);
+        padding: 12px 25px;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        box-shadow: none;
+    }
+
+    [data-theme="dark"] .download-cv:hover {
+        background-color: var(--text-color);
+        color: var(--bg-color);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+    }
+
+    /* Menghilangkan gradient di dark mode */
+    [data-theme="dark"] .download-cv {
+        background: var(--card-bg);
+        animation: none; /* Menghilangkan animasi pulse jika ada */
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.05);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    .download-cv {
+        animation: pulse 2s infinite;
+    }
+}
+
+@media (min-width: 769px) {
+    .about-section {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 80px 0;
+    }
+
+    .about-container {
+        display: grid;
+        grid-template-columns: 400px 1fr;
+        gap: 60px;
+        align-items: start;
+        padding: 0 40px;
+    }
+
+    /* Image Container */
+    .profile-image-container {
+        width: 400px;
+        height: 500px;
+        position: relative;
+    }
+
+    .profile-image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 30px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Info Container */
+    .info-container {
+        padding-top: 20px;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 40px;
+        color: var(--primary-color);
+    }
+
+    .greeting {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        color: var(--secondary-color);
+    }
+
+    .info-list {
+        margin: 30px 0;
+    }
+
+    .info-item {
+        margin-bottom: 15px;
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .info-item strong {
+        min-width: 120px;
+        display: inline-block;
+        font-weight: 600;
+        color: var(--primary-color);
+    }
+
+    .info-item span {
+        color: var(--text-color);
+    }
+
+    /* Download CV Button */
+    .download-cv {
+        display: inline-block;
+        padding: 12px 30px;
+        background-color: var(--primary-color);
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 500;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        margin-top: 30px;
+    }
+
+    .download-cv:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        background-color: var(--secondary-color);
+    }
+
+    .social-links {
+        margin-top: 40px;
+        display: flex;
+        gap: 30px; /* Memperbesar gap karena hanya 2 ikon */
+    }
+
+    .social-links a {
+        color: var(--primary-color);
+        font-size: 1.8rem;
+        transition: all 0.3s ease;
+        padding: 10px;
+    }
+
+    .social-links a:hover {
+        color: var(--secondary-color);
+        transform: translateY(-3px);
+    }
+
+    /* Styling untuk tombol Download CV di dark mode */
+    [data-theme="dark"] .download-cv {
+        background-color: var(--card-bg);
+        color: var(--text-color);
+        border: 1px solid var(--border-color);
+        padding: 12px 25px;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        box-shadow: none;
+    }
+
+    [data-theme="dark"] .download-cv:hover {
+        background-color: var(--text-color);
+        color: var(--bg-color);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+        -webkit-transform: translateY(-3px);
+        -moz-transform: translateY(-3px);
+        -ms-transform: translateY(-3px);
+        -o-transform: translateY(-3px);
+}
+
+    /* Menghilangkan gradient di dark mode */
+    [data-theme="dark"] .download-cv {
+        background: var(--card-bg);
+        animation: pulse;
+        
+}
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
