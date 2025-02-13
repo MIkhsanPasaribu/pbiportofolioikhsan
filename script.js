@@ -143,3 +143,66 @@ prefersDarkScheme.addEventListener('change', (e) => {
         themeToggle.checked = e.matches;
     }
 });
+
+// Scroll Progress Bar
+window.addEventListener('scroll', () => {
+    const scrollProgress = document.querySelector('.scroll-progress-bar');
+    const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = (window.pageYOffset / totalScroll) * 100;
+    scrollProgress.style.width = `${progress}%`;
+});
+
+// Back to Top functionality
+const backToTop = document.querySelector('.back-to-top');
+const threshold = 300;
+
+// Show/hide button based on scroll position
+const handleScroll = () => {
+    if (window.pageYOffset > threshold) {
+        backToTop.classList.add('visible');
+    } else {
+        backToTop.classList.remove('visible');
+    }
+};
+
+window.addEventListener('scroll', handleScroll);
+
+// Smooth scroll to top when clicked
+backToTop.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
+
+// Hide button on page load
+document.addEventListener('DOMContentLoaded', () => {
+    handleScroll();
+});
+
+// Page Loading Animation
+window.addEventListener('load', () => {
+    const loader = document.querySelector('.page-loader');
+    loader.style.opacity = '0';
+    setTimeout(() => {
+        loader.style.display = 'none';
+    }, 500);
+});
+
+// Section Visibility Animation
+const observerOptions = {
+    threshold: 0.1
+};
+
+// const observer = new IntersectionObserver((entries) => {
+//     entries.forEach(entry => {
+//         if (entry.isIntersecting) {
+//             entry.target.classList.add('visible');
+//         }
+//     });
+// }, observerOptions);
+
+// document.querySelectorAll('section').forEach(section => {
+//     observer.observe(section);
+// });
