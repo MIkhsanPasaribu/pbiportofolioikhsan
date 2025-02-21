@@ -1,4 +1,8 @@
 {
+  "devDependencies": {
+    "dotenv": "^16.4.7",
+    "vite": "^6.1.1"
+  },
   "dependencies": {
     "@vercel/speed-insights": "^1.2.0"
   }
