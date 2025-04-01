@@ -521,7 +521,10 @@ function loadAwards() {
 document.addEventListener('DOMContentLoaded', function() {
   // Your existing initialization code
   
-  // Load dynamic content for new sections
+  // Add card animation
+  animateCards();
+  
+  // Load dynamic content for sections
   loadExperience();
   loadEducation();
   loadCertifications();
@@ -579,3 +582,62 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
+// Card Animation for Experience, Education, etc.
+function animateCards() {
+  const cards = document.querySelectorAll('.timeline-content, .certification-card, .organization-card, .award-card');
+  
+  cards.forEach((card, index) => {
+    // Add a staggered animation delay
+    const delay = 100 * index;
+    
+    // Create observer for each card
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          }, delay);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    
+    // Set initial state
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(20px)';
+    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    
+    // Start observing
+    observer.observe(card);
+  });
+}
+
+// Timeline Animation (keeping this for backward compatibility)
+function animateTimeline() {
+  // Just call animateCards since we're using cards now
+  animateCards();
+}
+
+// Call these functions when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+  // Load dynamic content for sections first
+  loadProjects();
+  loadSkills();
+  loadExperience();
+  loadEducation();
+  loadCertifications();
+  loadOrganizations();
+  loadAwards();
+  
+  // Then animate the cards after content is loaded
+  setTimeout(() => {
+    animateCards();
+  }, 100);
+  
+  // Other initialization code
+  handleScroll();
+});
+
+// Remove duplicate event listeners and function calls

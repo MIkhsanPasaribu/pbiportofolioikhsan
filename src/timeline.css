@@ -1,0 +1,266 @@
+/* Modern Card-Based Layout for Experience, Education, Organizations, and Awards */
+
+/* Common Container Styles */
+.timeline-container,
+.certifications-container,
+.organizations-container,
+.awards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 25px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+/* Card Styles */
+.timeline-content,
+.certification-card,
+.organization-card,
+.award-card {
+  background-color: var(--card-bg);
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  padding: 25px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Card Hover Effects */
+.timeline-content:hover,
+.certification-card:hover,
+.organization-card:hover,
+.award-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Card Accent Line */
+.timeline-content::before,
+.certification-card::before,
+.organization-card::before,
+.award-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+}
+
+/* Organization Header */
+.timeline-content .organization,
+.certification-card .organization {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.timeline-content .organization img,
+.certification-card .organization img,
+.organization-card .logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  margin-right: 15px;
+  object-fit: cover;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Headings */
+.timeline-content h3,
+.certification-card h3,
+.organization-card h3,
+.award-card h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: var(--primary-color);
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+/* Company/Organization Name */
+.timeline-content .company,
+.organization-card .role,
+.award-card .issuer {
+  font-weight: 500;
+  margin-bottom: 10px;
+  color: var(--text-color);
+  font-size: 1.1rem;
+}
+
+/* Time Period */
+.timeline-content .period,
+.certification-card .issued-date,
+.organization-card .period,
+.award-card .date {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: var(--light-text);
+  margin-bottom: 10px;
+  background-color: rgba(var(--primary-color-rgb), 0.1);
+  padding: 5px 12px;
+  border-radius: 20px;
+}
+
+.timeline-content .period::before,
+.certification-card .issued-date::before,
+.organization-card .period::before,
+.award-card .date::before {
+  content: '\f017';
+  font-family: 'Font Awesome 5 Free';
+  margin-right: 8px;
+  font-weight: 400;
+}
+
+/* Location */
+.timeline-content .location,
+.organization-card .location {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: var(--light-text);
+  margin-bottom: 15px;
+  background-color: rgba(var(--primary-color-rgb), 0.1);
+  padding: 5px 12px;
+  border-radius: 20px;
+  margin-left: 10px;
+}
+
+.timeline-content .location::before,
+.organization-card .location::before {
+  content: '\f3c5';
+  font-family: 'Font Awesome 5 Free';
+  margin-right: 8px;
+  font-weight: 900;
+}
+
+/* Description */
+.timeline-content p,
+.certification-card p,
+.organization-card p,
+.award-card p {
+  margin-bottom: 20px;
+  line-height: 1.6;
+  color: var(--text-color);
+  flex-grow: 1;
+}
+
+/* Skills Tags */
+.timeline-content .skills,
+.certification-card .skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.timeline-content .skills span,
+.certification-card .skills span {
+  background: linear-gradient(to right, rgba(var(--primary-color-rgb), 0.1), rgba(var(--secondary-color-rgb), 0.1));
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: var(--text-color);
+  border: 1px solid rgba(var(--primary-color-rgb), 0.2);
+  transition: all 0.3s ease;
+}
+
+.timeline-content .skills span:hover,
+.certification-card .skills span:hover {
+  background: linear-gradient(to right, rgba(var(--primary-color-rgb), 0.2), rgba(var(--secondary-color-rgb), 0.2));
+  transform: translateY(-2px);
+}
+
+/* Credential Button */
+.certification-card .show-credential {
+  display: inline-block;
+  padding: 10px 20px;
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+  color: white;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  text-align: center;
+  margin-top: auto;
+  box-shadow: 0 4px 10px rgba(var(--primary-color-rgb), 0.3);
+}
+
+.certification-card .show-credential:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(var(--primary-color-rgb), 0.4);
+}
+
+/* Award Icon */
+.award-card .icon {
+  font-size: 2.5rem;
+  color: var(--secondary-color);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Organization Card Specific */
+.organization-card {
+  text-align: center;
+}
+
+.organization-card .logo {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  border-radius: 15px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .timeline-container,
+  .certifications-container,
+  .organizations-container,
+  .awards-container {
+    grid-template-columns: 1fr;
+    padding: 10px;
+  }
+  
+  .timeline-content .location,
+  .organization-card .location {
+    margin-left: 0;
+    margin-top: 10px;
+    display: inline-flex;
+  }
+  
+  .timeline-content .organization img,
+  .certification-card .organization img,
+  .organization-card .logo {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .organization-card .logo {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .timeline-content .skills span,
+[data-theme="dark"] .certification-card .skills span {
+  background: linear-gradient(to right, rgba(var(--primary-color-rgb), 0.2), rgba(var(--secondary-color-rgb), 0.2));
+  border: 1px solid rgba(var(--primary-color-rgb), 0.3);
+}
+
+[data-theme="dark"] .timeline-content .period,
+[data-theme="dark"] .certification-card .issued-date,
+[data-theme="dark"] .organization-card .period,
+[data-theme="dark"] .award-card .date,
+[data-theme="dark"] .timeline-content .location,
+[data-theme="dark"] .organization-card .location {
+  background-color: rgba(var(--primary-color-rgb), 0.2);
+}
