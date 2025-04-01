@@ -1054,3 +1054,34 @@ Notification Styles
         opacity: 1;
     }
 }
+
+/* Admin Link */
+.admin-link {
+  font-size: 0.8rem;
+  color: var(--light-text);
+  text-decoration: none;
+  margin-top: 1rem;
+  display: inline-block;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.admin-link:hover {
+  opacity: 1;
+}
+
+/* Admin Dashboard Styles */
+.login-container {
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 2rem;
+  background: var(--card-bg);
+  border-radius: 15px;
+  box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}

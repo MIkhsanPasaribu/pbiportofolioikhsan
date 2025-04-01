@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Portfolio</title>
+  <link rel="stylesheet" href="/src/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    .admin-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    .admin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    .admin-nav {
+      display: flex;
+      gap: 1rem;
+      background: var(--card-bg);
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+    }
+    .admin-nav-item {
+      padding: 0.8rem 1.5rem;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+    .admin-nav-item:hover, .admin-nav-item.active {
+      background: var(--secondary-color);
+      color: var(--bg-color);
+    }
+    .admin-section {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+      display: none;
+    }
+    .admin-section.active {
+      display: block;
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%;
+      padding: 0.8rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-color);
+      color: var(--text-color);
+    }
+    .form-group textarea {
+      min-height: 150px;
+    }
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+    }
+    .btn {
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    .btn-primary {
+      background: var(--secondary-color);
+      color: var(--bg-color);
+    }
+    .btn-danger {
+      background: #e74c3c;
+      color: white;
+    }
+    .btn:hover {
+      opacity: 0.9;
+    }
+    .item-list {
+      margin-top: 2rem;
+    }
+    .item-card {
+      background: var(--bg-color);
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .item-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .item-actions button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+    .edit-btn {
+      color: var(--secondary-color);
+    }
+    .delete-btn {
+      color: #e74c3c;
+    }
+    .logout-btn {
+      background: #e74c3c;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-container">
+    <div class="admin-header">
+      <h1>Admin Dashboard</h1>
+      <button class="logout-btn" id="logoutBtn">Logout</button>
+    </div>
+    
+    <div class="admin-nav">
+      <div class="admin-nav-item active" data-section="projects">Projects</div>
+      <div class="admin-nav-item" data-section="skills">Skills</div>
+      <div class="admin-nav-item" data-section="experience">Experience</div>
+      <div class="admin-nav-item" data-section="settings">Settings</div>
+    </div>
+    
+    <!-- Projects Section -->
+    <div class="admin-section active" id="projects-section">
+      <h2>Manage Projects</h2>
+      <form id="projectForm">
+        <div class="form-group">
+          <label for="projectTitle">Project Title</label>
+          <input type="text" id="projectTitle" required>
+        </div>
+        <div class="form-group">
+          <label for="projectDescription">Description</label>
+          <textarea id="projectDescription" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="projectCategory">Category</label>
+          <select id="projectCategory" required>
+            <option value="web">Web Development</option>
+            <option value="app">App Development</option>
+            <option value="ml">AI/ML</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="projectImage">Image URL</label>
+          <input type="text" id="projectImage" required>
+        </div>
+        <div class="form-group">
+          <label for="projectLink">Project Link</label>
+          <input type="text" id="projectLink">
+        </div>
+        <div class="form-group">
+          <label for="projectGithub">GitHub Link</label>
+          <input type="text" id="projectGithub">
+        </div>
+        <div class="form-group">
+          <label for="projectTags">Tags (comma separated)</label>
+          <input type="text" id="projectTags" required>
+        </div>
+        <div class="btn-group">
+          <button type="submit" class="btn btn-primary">Save Project</button>
+          <button type="button" class="btn btn-danger" id="clearProjectBtn">Clear Form</button>
+        </div>
+      </form>
+      
+      <div class="item-list" id="projectsList">
+        <!-- Projects will be listed here dynamically -->
+      </div>
+    </div>
+    
+    <!-- Skills Section -->
+    <div class="admin-section" id="skills-section">
+      <h2>Manage Skills</h2>
+      <form id="skillForm">
+        <div class="form-group">
+          <label for="skillName">Skill Name</label>
+          <input type="text" id="skillName" required>
+        </div>
+        <div class="form-group">
+          <label for="skillCategory">Category</label>
+          <select id="skillCategory" required>
+            <option value="Frontend">Frontend</option>
+            <option value="Backend">Backend</option>
+            <option value="AI/ML">AI/ML</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="skillLevel">Proficiency Level (0-100)</label>
+          <input type="number" id="skillLevel" min="0" max="100" required>
+        </div>
+        <div class="btn-group">
+          <button type="submit" class="btn btn-primary">Save Skill</button>
+          <button type="button" class="btn btn-danger" id="clearSkillBtn">Clear Form</button>
+        </div>
+      </form>
+      
+      <div class="item-list" id="skillsList">
+        <!-- Skills will be listed here dynamically -->
+      </div>
+    </div>
+    
+    <!-- Experience Section -->
+    <div class="admin-section" id="experience-section">
+      <h2>Manage Experience</h2>
+      <form id="experienceForm">
+        <div class="form-group">
+          <label for="experienceTitle">Position/Title</label>
+          <input type="text" id="experienceTitle" required>
+        </div>
+        <div class="form-group">
+          <label for="experienceCompany">Company/Organization</label>
+          <input type="text" id="experienceCompany" required>
+        </div>
+        <div class="form-group">
+          <label for="experiencePeriod">Period</label>
+          <input type="text" id="experiencePeriod" placeholder="e.g., Jan 2020 - Present" required>
+        </div>
+        <div class="form-group">
+          <label for="experienceDescription">Description</label>
+          <textarea id="experienceDescription" required></textarea>
+        </div>
+        <div class="btn-group">
+          <button type="submit" class="btn btn-primary">Save Experience</button>
+          <button type="button" class="btn btn-danger" id="clearExperienceBtn">Clear Form</button>
+        </div>
+      </form>
+      
+      <div class="item-list" id="experienceList">
+        <!-- Experience items will be listed here dynamically -->
+      </div>
+    </div>
+    
+    <!-- Settings Section -->
+    <div class="admin-section" id="settings-section">
+      <h2>Settings</h2>
+      <form id="settingsForm">
+        <div class="form-group">
+          <label for="adminPassword">Change Admin Password</label>
+          <input type="password" id="adminPassword">
+        </div>
+        <div class="form-group">
+          <label for="exportData">Export Data</label>
+          <button type="button" class="btn btn-primary" id="exportDataBtn">Export All Data</button>
+        </div>
+        <div class="form-group">
+          <label for="importData">Import Data</label>
+          <input type="file" id="importData" accept=".json">
+        </div>
+        <div class="btn-group">
+          <button type="submit" class="btn btn-primary">Save Settings</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/admin/js/admin.js"></script>
+</body>
+</html>

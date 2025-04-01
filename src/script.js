@@ -253,3 +253,171 @@ const observerOptions = {
 // document.querySelectorAll('section').forEach(section => {
 //     observer.observe(section);
 // });
+
+// Function to load projects dynamically
+function loadProjects() {
+  const projectGrid = document.querySelector('.project-grid');
+  const projects = JSON.parse(localStorage.getItem('portfolioProjects')) || [];
+  
+  // If there are no projects in localStorage, keep the existing HTML content
+  if (projects.length === 0) return;
+  
+  // Clear existing projects
+  projectGrid.innerHTML = '';
+  
+  // Add projects from localStorage
+  projects.forEach(project => {
+    const projectCard = document.createElement('div');
+    projectCard.className = 'project-card';
+    projectCard.setAttribute('data-category', project.category);
+    
+    projectCard.innerHTML = `
+      <div class="project-img">
+        <img src="${project.image}" alt="${project.title}" />
+        <div class="project-overlay">
+          <div class="project-links">
+            ${project.link ? `<a href="${project.link}" class="project-link" target="_blank"><i class="fas fa-link"></i></a>` : ''}
+            ${project.github ? `<a href="${project.github}" class="project-link" target="_blank"><i class="fab fa-github"></i></a>` : ''}
+          </div>
+        </div>
+      </div>
+      <div class="project-info">
+        <h3>${project.title}</h3>
+        <p>${project.description}</p>
+        <div class="project-tags">
+          ${project.tags.map(tag => `<span>${tag}</span>`).join('')}
+        </div>
+      </div>
+    `;
+    
+    projectGrid.appendChild(projectCard);
+  });
+  
+  // Re-initialize project filters
+  initProjectFilters();
+}
+
+// Function to load skills dynamically
+function loadSkills() {
+  const skillsContainer = document.querySelector('.skills-container');
+  const skills = JSON.parse(localStorage.getItem('portfolioSkills')) || [];
+  
+  // If there are no skills in localStorage, keep the existing HTML content
+  if (skills.length === 0) return;
+  
+  // Group skills by category
+  const skillsByCategory = {};
+  skills.forEach(skill => {
+    if (!skillsByCategory[skill.category]) {
+      skillsByCategory[skill.category] = [];
+    }
+    skillsByCategory[skill.category].push(skill);
+  });
+  
+  // Clear existing skills
+  skillsContainer.innerHTML = '';
+  
+  // Add skills by category
+  Object.keys(skillsByCategory).forEach(category => {
+    const skillCard = document.createElement('div');
+    skillCard.className = 'skill-card';
+    
+    let icon = 'fas fa-code'; // Default icon
+    if (category === 'Backend') icon = 'fas fa-server';
+    if (category === 'AI/ML') icon = 'fas fa-brain';
+    if (category === 'Other') icon = 'fas fa-tools';
+    
+    skillCard.innerHTML = `
+      <i class="${icon}"></i>
+      <h3>${category}</h3>
+    `;
+    
+    // Add skills for this category
+    skillsByCategory[category].forEach(skill => {
+      const skillBar = document.createElement('div');
+      skillBar.className = 'skill-bar';
+      skillBar.innerHTML = `
+        <div class="skill-progress" style="width: ${skill.level}%">
+          <span>${skill.name}</span>
+        </div>
+      `;
+      skillCard.appendChild(skillBar);
+    });
+    
+    skillsContainer.appendChild(skillCard);
+  });
+  
+  // Re-initialize skill animations
+  animateSkills();
+}
+
+// Function to load experience items (if you want to add an experience section)
+function loadExperience() {
+  const experiences = JSON.parse(localStorage.getItem('portfolioExperience')) || [];
+  
+  // If there are no experiences or no experience section, return
+  if (experiences.length === 0 || !document.getElementById('experience')) return;
+  
+  // Implementation for experience section if you add it later
+}
+
+// Call these functions when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+  // Load dynamic content
+  loadProjects();
+  loadSkills();
+  loadExperience();
+  
+  // Your existing initialization code
+});
+
+// Contact form handling
+document.addEventListener('DOMContentLoaded', function() {
+  const contactForm = document.getElementById('contactForm');
+  
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Show loading state
+      const submitBtn = contactForm.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn.textContent;
+      submitBtn.textContent = 'Sending...';
+      submitBtn.disabled = true;
+      
+      // Get form data
+      const formData = {
+        name: contactForm.querySelector('input[name="name"]').value,
+        email: contactForm.querySelector('input[name="email"]').value,
+        subject: contactForm.querySelector('input[name="subject"]').value,
+        message: contactForm.querySelector('textarea[name="message"]').value
+      };
+      
+      // Send email using EmailJS
+      emailjs.send('default_service', 'template_default', {
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject,
+        message: formData.message
+      })
+      .then(function() {
+        // Show success message
+        alert('Your message has been sent successfully!');
+        contactForm.reset();
+        
+        // Reset button
+        submitBtn.textContent = originalBtnText;
+        submitBtn.disabled = false;
+      })
+      .catch(function(error) {
+        // Show error message
+        alert('Oops! There was an error sending your message. Please try again later.');
+        console.error('EmailJS error:', error);
+        
+        // Reset button
+        submitBtn.textContent = originalBtnText;
+        submitBtn.disabled = false;
+      });
+    });
+  }
+});
