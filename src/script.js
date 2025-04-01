@@ -131,17 +131,40 @@ contactForm.addEventListener("submit", (e) => {
     });
 });
 
-// Skill Progress Animation
 function animateSkills() {
-  const skillBars = document.querySelectorAll(".skill-progress");
-  skillBars.forEach((bar) => {
+  const skillBars = document.querySelectorAll('.skill-progress');
+  
+  skillBars.forEach(bar => {
     const width = bar.style.width;
-    bar.style.width = "0";
+    bar.style.width = '0';
+    
     setTimeout(() => {
+      bar.style.transition = 'width 1s ease-in-out';
       bar.style.width = width;
-    }, 500);
+    }, 200);
   });
 }
+
+// Call this function when the skills section is in view
+document.addEventListener('DOMContentLoaded', function() {
+  // Your existing code
+  
+  // Add intersection observer for skills section
+  const skillsSection = document.getElementById('skills');
+  
+  if (skillsSection) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateSkills();
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    
+    observer.observe(skillsSection);
+  }
+});
 
 // Trigger skill animation when scrolled into view
 const skillsSection = document.querySelector("#skills");
