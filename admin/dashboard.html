@@ -138,6 +138,10 @@
       <div class="admin-nav-item active" data-section="projects">Projects</div>
       <div class="admin-nav-item" data-section="skills">Skills</div>
       <div class="admin-nav-item" data-section="experience">Experience</div>
+      <div class="admin-nav-item" data-section="education">Education</div>
+      <div class="admin-nav-item" data-section="certifications">Certifications</div>
+      <div class="admin-nav-item" data-section="organizations">Organizations</div>
+      <div class="admin-nav-item" data-section="awards">Awards</div>
       <div class="admin-nav-item" data-section="settings">Settings</div>
     </div>
     
@@ -220,34 +224,175 @@
       </div>
     </div>
     
-    <!-- Experience Section -->
-    <div class="admin-section" id="experience-section">
-      <h2>Manage Experience</h2>
-      <form id="experienceForm">
+    <!-- Education Section -->
+    <div class="admin-section" id="education-section">
+      <h2>Manage Education</h2>
+      <form id="educationForm">
         <div class="form-group">
-          <label for="experienceTitle">Position/Title</label>
-          <input type="text" id="experienceTitle" required>
+          <label for="educationSchool">School/University</label>
+          <input type="text" id="educationSchool" required>
         </div>
         <div class="form-group">
-          <label for="experienceCompany">Company/Organization</label>
-          <input type="text" id="experienceCompany" required>
+          <label for="educationDegree">Degree</label>
+          <input type="text" id="educationDegree" required>
         </div>
         <div class="form-group">
-          <label for="experiencePeriod">Period</label>
-          <input type="text" id="experiencePeriod" placeholder="e.g., Jan 2020 - Present" required>
+          <label for="educationField">Field of Study</label>
+          <input type="text" id="educationField" required>
         </div>
         <div class="form-group">
-          <label for="experienceDescription">Description</label>
-          <textarea id="experienceDescription" required></textarea>
+          <label for="educationStartDate">Start Date</label>
+          <input type="month" id="educationStartDate" required>
+        </div>
+        <div class="form-group">
+          <label for="educationEndDate">End Date (leave empty if current)</label>
+          <input type="month" id="educationEndDate">
+        </div>
+        <div class="form-group">
+          <label for="educationGrade">Grade/GPA (optional)</label>
+          <input type="text" id="educationGrade">
+        </div>
+        <div class="form-group">
+          <label for="educationLocation">Location</label>
+          <input type="text" id="educationLocation" required>
+        </div>
+        <div class="form-group">
+          <label for="educationDescription">Description</label>
+          <textarea id="educationDescription"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="educationLogo">Logo URL</label>
+          <input type="text" id="educationLogo">
+        </div>
+        <div class="form-group">
+          <label for="educationSkills">Skills (comma separated)</label>
+          <input type="text" id="educationSkills">
         </div>
         <div class="btn-group">
-          <button type="submit" class="btn btn-primary">Save Experience</button>
-          <button type="button" class="btn btn-danger" id="clearExperienceBtn">Clear Form</button>
+          <button type="submit" class="btn btn-primary">Save Education</button>
+          <button type="button" class="btn btn-danger" id="clearEducationBtn">Clear Form</button>
         </div>
       </form>
       
-      <div class="item-list" id="experienceList">
-        <!-- Experience items will be listed here dynamically -->
+      <div class="item-list" id="educationList">
+        <!-- Education items will be listed here dynamically -->
+      </div>
+    </div>
+
+    <!-- Certifications Section -->
+    <div class="admin-section" id="certifications-section">
+      <h2>Manage Certifications</h2>
+      <form id="certificationForm">
+        <div class="form-group">
+          <label for="certificationName">Certification Name</label>
+          <input type="text" id="certificationName" required>
+        </div>
+        <div class="form-group">
+          <label for="certificationIssuer">Issuing Organization</label>
+          <input type="text" id="certificationIssuer" required>
+        </div>
+        <div class="form-group">
+          <label for="certificationDate">Issue Date</label>
+          <input type="month" id="certificationDate" required>
+        </div>
+        <div class="form-group">
+          <label for="certificationExpiry">Expiration Date (optional)</label>
+          <input type="month" id="certificationExpiry">
+        </div>
+        <div class="form-group">
+          <label for="certificationCredentialID">Credential ID</label>
+          <input type="text" id="certificationCredentialID">
+        </div>
+        <div class="form-group">
+          <label for="certificationCredentialURL">Credential URL</label>
+          <input type="text" id="certificationCredentialURL">
+        </div>
+        <div class="form-group">
+          <label for="certificationLogo">Organization Logo URL</label>
+          <input type="text" id="certificationLogo">
+        </div>
+        <div class="btn-group">
+          <button type="submit" class="btn btn-primary">Save Certification</button>
+          <button type="button" class="btn btn-danger" id="clearCertificationBtn">Clear Form</button>
+        </div>
+      </form>
+      
+      <div class="item-list" id="certificationsList">
+        <!-- Certifications will be listed here dynamically -->
+      </div>
+    </div>
+
+    <!-- Organizations Section -->
+    <div class="admin-section" id="organizations-section">
+      <h2>Manage Organizations</h2>
+      <form id="organizationForm">
+        <div class="form-group">
+          <label for="organizationName">Organization Name</label>
+          <input type="text" id="organizationName" required>
+        </div>
+        <div class="form-group">
+          <label for="organizationRole">Your Role/Position</label>
+          <input type="text" id="organizationRole" required>
+        </div>
+        <div class="form-group">
+          <label for="organizationStartDate">Start Date</label>
+          <input type="month" id="organizationStartDate" required>
+        </div>
+        <div class="form-group">
+          <label for="organizationEndDate">End Date (leave empty if current)</label>
+          <input type="month" id="organizationEndDate">
+        </div>
+        <div class="form-group">
+          <label for="organizationLocation">Location</label>
+          <input type="text" id="organizationLocation">
+        </div>
+        <div class="form-group">
+          <label for="organizationDescription">Description</label>
+          <textarea id="organizationDescription"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="organizationLogo">Logo URL</label>
+          <input type="text" id="organizationLogo">
+        </div>
+        <div class="btn-group">
+          <button type="submit" class="btn btn-primary">Save Organization</button>
+          <button type="button" class="btn btn-danger" id="clearOrganizationBtn">Clear Form</button>
+        </div>
+      </form>
+      
+      <div class="item-list" id="organizationsList">
+        <!-- Organizations will be listed here dynamically -->
+      </div>
+    </div>
+
+    <!-- Awards Section -->
+    <div class="admin-section" id="awards-section">
+      <h2>Manage Honors & Awards</h2>
+      <form id="awardForm">
+        <div class="form-group">
+          <label for="awardTitle">Award Title</label>
+          <input type="text" id="awardTitle" required>
+        </div>
+        <div class="form-group">
+          <label for="awardIssuer">Issuing Organization</label>
+          <input type="text" id="awardIssuer" required>
+        </div>
+        <div class="form-group">
+          <label for="awardDate">Issue Date</label>
+          <input type="month" id="awardDate" required>
+        </div>
+        <div class="form-group">
+          <label for="awardDescription">Description</label>
+          <textarea id="awardDescription"></textarea>
+        </div>
+        <div class="btn-group">
+          <button type="submit" class="btn btn-primary">Save Award</button>
+          <button type="button" class="btn btn-danger" id="clearAwardBtn">Clear Form</button>
+        </div>
+      </form>
+      
+      <div class="item-list" id="awardsList">
+        <!-- Awards will be listed here dynamically -->
       </div>
     </div>
     

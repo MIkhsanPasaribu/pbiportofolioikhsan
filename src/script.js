@@ -351,24 +351,182 @@ function loadSkills() {
   animateSkills();
 }
 
-// Function to load experience items (if you want to add an experience section)
+// Function to load experience items
 function loadExperience() {
   const experiences = JSON.parse(localStorage.getItem('portfolioExperience')) || [];
+  const experienceContainer = document.querySelector('#experience .timeline-container');
   
-  // If there are no experiences or no experience section, return
-  if (experiences.length === 0 || !document.getElementById('experience')) return;
+  // If there's no container or no experiences in localStorage, keep the existing HTML content
+  if (!experienceContainer || experiences.length === 0) return;
   
-  // Implementation for experience section if you add it later
+  // Clear existing content
+  experienceContainer.innerHTML = '';
+  
+  // Add experiences from localStorage
+  experiences.forEach(exp => {
+    const expItem = document.createElement('div');
+    expItem.className = 'timeline-item';
+    
+    expItem.innerHTML = `
+      <div class="timeline-content">
+        <div class="organization">
+          ${exp.logo ? `<img src="${exp.logo}" alt="${exp.company}">` : ''}
+          <h3>${exp.title}</h3>
+        </div>
+        <p class="company">${exp.company}</p>
+        <p class="period">${exp.startDate} - ${exp.endDate}</p>
+        ${exp.location ? `<p class="location">${exp.location}</p>` : ''}
+        <p>${exp.description}</p>
+        ${exp.skills && exp.skills.length > 0 ? 
+          `<div class="skills">
+            ${exp.skills.map(skill => `<span>${skill}</span>`).join('')}
+          </div>` : ''}
+      </div>
+    `;
+    
+    experienceContainer.appendChild(expItem);
+  });
+}
+
+// Function to load education items
+function loadEducation() {
+  const educations = JSON.parse(localStorage.getItem('portfolioEducation')) || [];
+  const educationContainer = document.querySelector('#education .timeline-container');
+  
+  // If there's no container or no educations in localStorage, keep the existing HTML content
+  if (!educationContainer || educations.length === 0) return;
+  
+  // Clear existing content
+  educationContainer.innerHTML = '';
+  
+  // Add educations from localStorage
+  educations.forEach(edu => {
+    const eduItem = document.createElement('div');
+    eduItem.className = 'timeline-item';
+    
+    eduItem.innerHTML = `
+      <div class="timeline-content">
+        <div class="organization">
+          ${edu.logo ? `<img src="${edu.logo}" alt="${edu.school}">` : ''}
+          <h3>${edu.school}</h3>
+        </div>
+        <p class="degree">${edu.degree}, ${edu.field}</p>
+        <p class="period">${edu.startDate} - ${edu.endDate}</p>
+        ${edu.grade ? `<p>Grade: ${edu.grade}</p>` : ''}
+        ${edu.description ? `<p>${edu.description}</p>` : ''}
+        ${edu.skills && edu.skills.length > 0 ? 
+          `<div class="skills">
+            ${edu.skills.map(skill => `<span>${skill}</span>`).join('')}
+          </div>` : ''}
+      </div>
+    `;
+    
+    educationContainer.appendChild(eduItem);
+  });
+}
+
+// Function to load certification items
+function loadCertifications() {
+  const certifications = JSON.parse(localStorage.getItem('portfolioCertifications')) || [];
+  const certificationsContainer = document.querySelector('#certifications .certifications-container');
+  
+  // If there's no container or no certifications in localStorage, keep the existing HTML content
+  if (!certificationsContainer || certifications.length === 0) return;
+  
+  // Clear existing content
+  certificationsContainer.innerHTML = '';
+  
+  // Add certifications from localStorage
+  certifications.forEach(cert => {
+    const certItem = document.createElement('div');
+    certItem.className = 'certification-card';
+    
+    certItem.innerHTML = `
+      <div class="organization">
+        ${cert.logo ? `<img src="${cert.logo}" alt="${cert.issuer}">` : ''}
+        <div>
+          <h3>${cert.issuer}</h3>
+        </div>
+      </div>
+      <div class="content">
+        <h3>${cert.name}</h3>
+        <p class="issued-date">Issued ${cert.issueDate}</p>
+        ${cert.credentialId ? `<p class="credential-id">Credential ID ${cert.credentialId}</p>` : ''}
+        ${cert.credentialUrl ? `<a href="${cert.credentialUrl}" class="show-credential" target="_blank">Show credential</a>` : ''}
+      </div>
+    `;
+    
+    certificationsContainer.appendChild(certItem);
+  });
+}
+
+// Function to load organization items
+function loadOrganizations() {
+  const organizations = JSON.parse(localStorage.getItem('portfolioOrganizations')) || [];
+  const organizationsContainer = document.querySelector('#organizations .organizations-container');
+  
+  // If there's no container or no organizations in localStorage, keep the existing HTML content
+  if (!organizationsContainer || organizations.length === 0) return;
+  
+  // Clear existing content
+  organizationsContainer.innerHTML = '';
+  
+  // Add organizations from localStorage
+  organizations.forEach(org => {
+    const orgItem = document.createElement('div');
+    orgItem.className = 'organization-card';
+    
+    orgItem.innerHTML = `
+      ${org.logo ? `<img src="${org.logo}" alt="${org.name}" class="logo">` : ''}
+      <h3>${org.name}</h3>
+      <p class="role">${org.role}</p>
+      <p class="period">${org.startDate} - ${org.endDate}</p>
+      ${org.location ? `<p class="location">${org.location}</p>` : ''}
+      ${org.description ? `<p>${org.description}</p>` : ''}
+    `;
+    
+    organizationsContainer.appendChild(orgItem);
+  });
+}
+
+// Function to load award items
+function loadAwards() {
+  const awards = JSON.parse(localStorage.getItem('portfolioAwards')) || [];
+  const awardsContainer = document.querySelector('#awards .awards-container');
+  
+  // If there's no container or no awards in localStorage, keep the existing HTML content
+  if (!awardsContainer || awards.length === 0) return;
+  
+  // Clear existing content
+  awardsContainer.innerHTML = '';
+  
+  // Add awards from localStorage
+  awards.forEach(award => {
+    const awardItem = document.createElement('div');
+    awardItem.className = 'award-card';
+    
+    awardItem.innerHTML = `
+      <div class="icon"><i class="fas fa-trophy"></i></div>
+      <h3>${award.title}</h3>
+      <p class="issuer">${award.issuer}</p>
+      <p class="date">${award.date}</p>
+      ${award.description ? `<p>${award.description}</p>` : ''}
+    `;
+    
+    awardsContainer.appendChild(awardItem);
+  });
 }
 
 // Call these functions when the page loads
 document.addEventListener('DOMContentLoaded', function() {
-  // Load dynamic content
-  loadProjects();
-  loadSkills();
-  loadExperience();
-  
   // Your existing initialization code
+  
+  // Load dynamic content for new sections
+  loadExperience();
+  loadEducation();
+  loadCertifications();
+  loadOrganizations();
+  loadAwards();
 });
 
 // Contact form handling
