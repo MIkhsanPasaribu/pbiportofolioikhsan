@@ -365,22 +365,23 @@ function loadExperience() {
   // Add experiences from localStorage
   experiences.forEach(exp => {
     const expItem = document.createElement('div');
-    expItem.className = 'timeline-item';
+    expItem.className = 'timeline-content';
     
     expItem.innerHTML = `
-      <div class="timeline-content">
-        <div class="organization">
-          ${exp.logo ? `<img src="${exp.logo}" alt="${exp.company}">` : ''}
-          <h3>${exp.title}</h3>
-        </div>
-        <p class="company">${exp.company}</p>
-        <p class="period">${exp.startDate} - ${exp.endDate}</p>
-        ${exp.location ? `<p class="location">${exp.location}</p>` : ''}
-        <p>${exp.description}</p>
-        ${exp.skills && exp.skills.length > 0 ? 
-          `<div class="skills">
-            ${exp.skills.map(skill => `<span>${skill}</span>`).join('')}
-          </div>` : ''}
+      <div class="organization">
+        ${exp.logo ? `<img src="${exp.logo}" alt="${exp.company}">` : ''}
+        <h3>${exp.title}</h3>
+      </div>
+      <p class="company">${exp.company}</p>
+      <div class="meta-info">
+        <span class="period">${exp.startDate} - ${exp.endDate}</span>
+        ${exp.location ? `<span class="location">${exp.location}</span>` : ''}
+      </div>
+      ${exp.description ? `<p>${exp.description}</p>` : ''}
+      ${exp.skills && exp.skills.length > 0 ? 
+        `<div class="skills">
+          ${exp.skills.map(skill => `<span>${skill}</span>`).join('')}
+        </div>` : ''}
       </div>
     `;
     
@@ -402,23 +403,23 @@ function loadEducation() {
   // Add educations from localStorage
   educations.forEach(edu => {
     const eduItem = document.createElement('div');
-    eduItem.className = 'timeline-item';
+    eduItem.className = 'timeline-content';
     
     eduItem.innerHTML = `
-      <div class="timeline-content">
-        <div class="organization">
-          ${edu.logo ? `<img src="${edu.logo}" alt="${edu.school}">` : ''}
-          <h3>${edu.school}</h3>
-        </div>
-        <p class="degree">${edu.degree}, ${edu.field}</p>
-        <p class="period">${edu.startDate} - ${edu.endDate}</p>
-        ${edu.grade ? `<p>Grade: ${edu.grade}</p>` : ''}
-        ${edu.description ? `<p>${edu.description}</p>` : ''}
-        ${edu.skills && edu.skills.length > 0 ? 
-          `<div class="skills">
-            ${edu.skills.map(skill => `<span>${skill}</span>`).join('')}
-          </div>` : ''}
+      <div class="organization">
+        ${edu.logo ? `<img src="${edu.logo}" alt="${edu.school}">` : ''}
+        <h3>${edu.school}</h3>
       </div>
+      <p class="degree">${edu.degree}, ${edu.field}</p>
+      <div class="meta-info">
+        <span class="period">${edu.startDate} - ${edu.endDate}</span>
+      </div>
+      ${edu.grade ? `<p>Grade: ${edu.grade}</p>` : ''}
+      ${edu.description ? `<p>${edu.description}</p>` : ''}
+      ${edu.skills && edu.skills.length > 0 ? 
+        `<div class="skills">
+          ${edu.skills.map(skill => `<span>${skill}</span>`).join('')}
+        </div>` : ''}
     `;
     
     educationContainer.appendChild(eduItem);
@@ -517,72 +518,6 @@ function loadAwards() {
   });
 }
 
-// Call these functions when the page loads
-document.addEventListener('DOMContentLoaded', function() {
-  // Your existing initialization code
-  
-  // Add card animation
-  animateCards();
-  
-  // Load dynamic content for sections
-  loadExperience();
-  loadEducation();
-  loadCertifications();
-  loadOrganizations();
-  loadAwards();
-});
-
-// Contact form handling
-document.addEventListener('DOMContentLoaded', function() {
-  const contactForm = document.getElementById('contactForm');
-  
-  if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      // Show loading state
-      const submitBtn = contactForm.querySelector('button[type="submit"]');
-      const originalBtnText = submitBtn.textContent;
-      submitBtn.textContent = 'Sending...';
-      submitBtn.disabled = true;
-      
-      // Get form data
-      const formData = {
-        name: contactForm.querySelector('input[name="name"]').value,
-        email: contactForm.querySelector('input[name="email"]').value,
-        subject: contactForm.querySelector('input[name="subject"]').value,
-        message: contactForm.querySelector('textarea[name="message"]').value
-      };
-      
-      // Send email using EmailJS
-      emailjs.send('default_service', 'template_default', {
-        from_name: formData.name,
-        from_email: formData.email,
-        subject: formData.subject,
-        message: formData.message
-      })
-      .then(function() {
-        // Show success message
-        alert('Your message has been sent successfully!');
-        contactForm.reset();
-        
-        // Reset button
-        submitBtn.textContent = originalBtnText;
-        submitBtn.disabled = false;
-      })
-      .catch(function(error) {
-        // Show error message
-        alert('Oops! There was an error sending your message. Please try again later.');
-        console.error('EmailJS error:', error);
-        
-        // Reset button
-        submitBtn.textContent = originalBtnText;
-        submitBtn.disabled = false;
-      });
-    });
-  }
-});
-
 // Card Animation for Experience, Education, etc.
 function animateCards() {
   const cards = document.querySelectorAll('.timeline-content, .certification-card, .organization-card, .award-card');
@@ -614,30 +549,103 @@ function animateCards() {
   });
 }
 
-// Timeline Animation (keeping this for backward compatibility)
+// For backward compatibility
 function animateTimeline() {
-  // Just call animateCards since we're using cards now
   animateCards();
 }
 
-// Call these functions when the page loads
+// Remove duplicate DOMContentLoaded event listeners and consolidate them
 document.addEventListener('DOMContentLoaded', function() {
-  // Load dynamic content for sections first
+  // Initialize typing animation
+  if (textArray.length) setTimeout(type, newTextDelay + 250);
+  
+  // Handle scroll for back to top button
+  handleScroll();
+  
+  // Load dynamic content
   loadProjects();
-  loadSkills();
   loadExperience();
   loadEducation();
   loadCertifications();
   loadOrganizations();
   loadAwards();
   
-  // Then animate the cards after content is loaded
+  // Add animation after content is loaded
   setTimeout(() => {
     animateCards();
-  }, 100);
-  
-  // Other initialization code
-  handleScroll();
+  }, 200);
 });
 
-// Remove duplicate event listeners and function calls
+// Function to load education items
+function loadEducation() {
+  const educations = JSON.parse(localStorage.getItem('portfolioEducation')) || [];
+  const educationContainer = document.querySelector('#education .timeline-container');
+  
+  // If there's no container or no educations in localStorage, keep the existing HTML content
+  if (!educationContainer || educations.length === 0) return;
+  
+  // Clear existing content
+  educationContainer.innerHTML = '';
+  
+  // Add educations from localStorage
+  educations.forEach(edu => {
+    const eduItem = document.createElement('div');
+    eduItem.className = 'timeline-content';
+    
+    eduItem.innerHTML = `
+      <div class="organization">
+        ${edu.logo ? `<img src="${edu.logo}" alt="${edu.school}">` : ''}
+        <h3>${edu.school}</h3>
+      </div>
+      <p class="degree">${edu.degree}, ${edu.field}</p>
+      <div class="meta-info">
+        <span class="period">${edu.startDate} - ${edu.endDate}</span>
+      </div>
+      ${edu.grade ? `<p>Grade: ${edu.grade}</p>` : ''}
+      ${edu.description ? `<p>${edu.description}</p>` : ''}
+      ${edu.skills && edu.skills.length > 0 ? 
+        `<div class="skills">
+          ${edu.skills.map(skill => `<span>${skill}</span>`).join('')}
+        </div>` : ''}
+    `;
+    
+    educationContainer.appendChild(eduItem);
+  });
+}
+
+// Function to load experience items
+function loadExperience() {
+  const experiences = JSON.parse(localStorage.getItem('portfolioExperience')) || [];
+  const experienceContainer = document.querySelector('#experience .timeline-container');
+  
+  // If there's no container or no experiences in localStorage, keep the existing HTML content
+  if (!experienceContainer || experiences.length === 0) return;
+  
+  // Clear existing content
+  experienceContainer.innerHTML = '';
+  
+  // Add experiences from localStorage
+  experiences.forEach(exp => {
+    const expItem = document.createElement('div');
+    expItem.className = 'timeline-content';
+    
+    expItem.innerHTML = `
+      <div class="organization">
+        ${exp.logo ? `<img src="${exp.logo}" alt="${exp.company}">` : ''}
+        <h3>${exp.title}</h3>
+      </div>
+      <p class="company">${exp.company}</p>
+      <div class="meta-info">
+        <span class="period">${exp.startDate} - ${exp.endDate}</span>
+        ${exp.location ? `<span class="location">${exp.location}</span>` : ''}
+      </div>
+      ${exp.description ? `<p>${exp.description}</p>` : ''}
+      ${exp.skills && exp.skills.length > 0 ? 
+        `<div class="skills">
+          ${exp.skills.map(skill => `<span>${skill}</span>`).join('')}
+        </div>` : ''}
+    `;
+    
+    experienceContainer.appendChild(expItem);
+  });
+}

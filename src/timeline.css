@@ -28,6 +28,8 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  opacity: 1; /* Make sure cards are visible by default */
+  transform: translateY(0); /* Reset any transform */
 }
 
 /* Card Hover Effects */
@@ -94,6 +96,14 @@
   font-size: 1.1rem;
 }
 
+/* Meta Info Container */
+.meta-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
 /* Time Period */
 .timeline-content .period,
 .certification-card .issued-date,
@@ -103,7 +113,6 @@
   align-items: center;
   font-size: 0.9rem;
   color: var(--light-text);
-  margin-bottom: 10px;
   background-color: rgba(var(--primary-color-rgb), 0.1);
   padding: 5px 12px;
   border-radius: 20px;
@@ -126,11 +135,9 @@
   align-items: center;
   font-size: 0.9rem;
   color: var(--light-text);
-  margin-bottom: 15px;
   background-color: rgba(var(--primary-color-rgb), 0.1);
   padding: 5px 12px;
   border-radius: 20px;
-  margin-left: 10px;
 }
 
 .timeline-content .location::before,
@@ -229,11 +236,9 @@
     padding: 10px;
   }
   
-  .timeline-content .location,
-  .organization-card .location {
-    margin-left: 0;
-    margin-top: 10px;
-    display: inline-flex;
+  .meta-info {
+    flex-direction: column;
+    align-items: flex-start;
   }
   
   .timeline-content .organization img,
@@ -247,6 +252,17 @@
     width: 60px;
     height: 60px;
   }
+}
+
+/* Fix for Education section */
+#education .timeline-item {
+  width: 100%;
+  padding: 0;
+  margin-bottom: 25px;
+}
+
+#education .timeline-item::after {
+  display: none;
 }
 
 /* Dark mode adjustments */
